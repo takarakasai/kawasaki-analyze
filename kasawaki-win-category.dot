@@ -1,0 +1,65 @@
+graph "Kawasaki-Robot-Win-Pattern" {
+  subgraph "cluster_0" {
+    style="filled";
+    color="lightgrey";
+    label="ルール上の勝ち";
+    node[style="filled",color="white"];
+    Winner -- 自滅;
+    Winner -- 場外;
+    Winner -- 転倒復帰できず;
+    Winner -- コイントス;
+    Winner -- 行動不能;
+    Winner -- 機体異常;
+    Winner -- 反則;
+    Winner -- スタート台でれず;
+    Winner -- ギブアップ;
+    反則 -- 意図した破壊;
+    反則 -- 戦わない;
+    機体異常 -- 動作不良;
+    機体異常 -- 故障;
+    機体異常 -- 分解;
+    動作不良 -- 炎上;
+    コイントス -- 時間切れ;
+  }
+
+  subgraph "cluster_1" {
+    color="blue";
+    label="機構上の勝ち";
+    node[style="filled"];
+ 
+    転倒復帰できず -- ひっくり返し[color=red,style=bold,label="     "];
+    場外 -- 押し出し[color=red,style=bold,label="     "];
+    行動不能 -- 押さえつけ[color=red,style=bold,label="     "];
+
+    押し出し     -- 脚
+    押し出し     -- "アーム＋脚(押し出し)"
+    ひっくり返し -- アーム
+    ひっくり返し -- "アーム＋脚(ひっくり返し)"
+
+    "アーム＋脚(ひっくり返し)" -- リロード式;
+    アーム                     -- 反復軌道;
+    "アーム＋脚(ひっくり返し)" -- 無限軌道A;
+    "アーム＋脚(ひっくり返し)" -- 無限軌道B;
+    "アーム＋脚(押し出し)"     -- 無限軌道B;
+  }
+
+  subgraph "cluster_2" {
+    color="green";
+    label="機構の実装パターン";
+    node[style="filled"];
+
+    リロード式  -- リロード機構;
+    反復軌道    -- 反復機構;
+    無限軌道A   -- 無限軌道機構A;
+    無限軌道B   -- 無限軌道機構B;
+
+    反復機構         -- ロッドタイプアーム;
+    反復機構         -- シールドタイプアーム;
+    無限軌道機構A    -- 無限軌道クランクアーム;
+    無限軌道機構B    -- 回転シールドタイプアーム;
+
+    無限軌道クランクアーム    -- スライダリンクアーム;
+    無限軌道クランクアーム    -- ヘッケンリンクアーム;
+  } 
+}
+
