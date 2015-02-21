@@ -20,17 +20,30 @@ graph "Kawasaki-Robot-Win-Pattern" {
     機体異常 -- 分解;
     動作不良 -- 炎上;
     コイントス -- 時間切れ;
+    自滅     -- 単純な操作ミス;
+    自滅     -- 誘発された操作ミス;
   }
 
   subgraph "cluster_1" {
     color="blue";
-    label="機構上の勝ち";
+    label="戦略";
+    node[style="filled"];
+
+    誘発された操作ミス -- 受動的[color=red,label="     "];
+    転倒復帰できず     -- 能動的[color=red,label="     "];
+    場外               -- 能動的[color=red,label="     "];
+    行動不能           -- 能動的[color=red,label="     "];
+  }
+
+  subgraph "cluster_2" {
+    color="blue";
+    label="能動的な勝ちパターン";
     node[style="filled"];
  
-    転倒復帰できず -- ひっくり返し[color=red,style=bold,label="     "];
-    場外 -- 押し出し[color=red,style=bold,label="     "];
-    行動不能 -- 押さえつけ[color=red,style=bold,label="     "];
-    行動不能 -- 吊り上げ[color=red,style=bold,label="     "];
+    能動的 -- ひっくり返し[color=red,label="     "];
+    能動的 -- 押し出し[color=red,label="     "];
+    能動的 -- 押さえつけ[color=red,label="     "];
+    能動的 -- 吊り上げ[color=red,label="     "];
 
     押し出し     -- 脚
     押し出し     -- "アーム＋脚(押し出し)"
@@ -45,7 +58,7 @@ graph "Kawasaki-Robot-Win-Pattern" {
     "アーム＋脚(押し出し)"     -- "反復軌道(押し出し)";
   }
 
-  subgraph "cluster_2" {
+  subgraph "cluster_3" {
     color="green";
     label="機構の実装パターン";
     node[style="filled"];
